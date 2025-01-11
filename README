@@ -1,0 +1,60 @@
+# AutoText Replacer
+
+## Overview
+The AutoText Replacer is a program that allows you to type specific trigger words (e.g., `/rec`) in any text field, and it will automatically replace the trigger with predefined sentences. This tool is designed to save time and effort by quickly inserting commonly used phrases.
+
+---
+
+## How to Use
+
+1. **Run the Program**:
+   - Simply double-click the `app.py` file to start the program.
+   - A terminal window will appear, indicating that the program is running and listening for trigger words.
+
+2. **Use Triggers**:
+   - Open any text field (e.g., in a browser, word processor, or text editor).
+   - Type one of the trigger words (e.g., `/rec`) and watch it get replaced by the corresponding sentence.
+
+3. **Stop the Program**:
+   - To stop the program, click on the terminal window and press `Esc` or close the terminal window.
+
+---
+
+## Adding New Words
+
+To add new trigger words and their corresponding sentences:
+
+1. Open the `sentences.json` file in any text editor (e.g., Notepad, VS Code).
+2. Add a new trigger and sentence in the following format:
+   ```json
+   {
+       "/rec": "This is the predefined text to autopopulate.",
+       "/greet": "Hello! How can I assist you today?",
+       "/newtrigger": "This is the text for the new trigger."
+   }
+   ```
+   - Make sure to follow the JSON format: each key-value pair is separated by a comma, and the file ends without a trailing comma.
+3. Save the file.
+4. Restart the program by closing the terminal and double-clicking the `app.py` file again.
+
+---
+
+## Example Triggers
+
+- `/rec` → `This is the predefined text to autopopulate.`
+- `/greet` → `Hello! How can I assist you today?`
+- Add as many triggers as you like in the `sentences.json` file!
+
+---
+
+## Notes
+
+- **Cross-Platform Compatibility**: Works on both Windows and macOS/Linux.
+- **Dependencies**: No need to worry about installing anything manually. The program automatically creates a virtual environment and installs required libraries.
+
+---
+
+Feel free to share this with your team or customize it further. If you encounter any issues, double-check the `sentences.json` file for formatting errors.
+
+Enjoy!
+
