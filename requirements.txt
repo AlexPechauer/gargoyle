@@ -1,2 +1,3 @@
 # Return line after each requirement
+load_dotenv
 pynput

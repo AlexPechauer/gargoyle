@@ -4,15 +4,28 @@ import subprocess
 import venv
 import stat
 
+CONFIG = {}
+
+#TODO This doesn't work so much
+def load_config(env_file=".dev.env"):
+    from dotenv import load_dotenv
+    global CONFIG
+
+    load_dotenv(env_file)
+    
+    for key, value in os.environ.items():
+        if key in open(env_file).read():
+            CONFIG[key] = value
+
+    return CONFIG
+
 def read_requirements(file_path="requirements.txt"):
     with open(file_path, "r") as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
-# Virtual environment and dependencies setup
 VENV_DIR = "venv"
 REQUIREMENTS = read_requirements()
 
-# Ensure the virtual environment activation script is executable
 def ensure_activation_permissions():
     if os.name != "nt":  # Only applies to Unix-based systems
         activate_script = os.path.join(VENV_DIR, "bin", "activate")
@@ -20,14 +33,12 @@ def ensure_activation_permissions():
             print("Setting execute permissions for the activation script...")
             os.chmod(activate_script, os.stat(activate_script).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
-# Create and activate the virtual environment
 def setup_virtual_environment():
     if not os.path.exists(VENV_DIR):
         print("Creating virtual environment...")
         venv.create(VENV_DIR, with_pip=True)
         ensure_activation_permissions()
 
-    # Ensure the virtual environment is activated
     if "VIRTUAL_ENV" not in os.environ:
         print("Activating virtual environment...")
         activate_script = os.path.join(VENV_DIR, "Scripts", "activate") if os.name == "nt" else os.path.join(VENV_DIR, "bin", "activate")
@@ -39,7 +50,6 @@ def setup_virtual_environment():
         os.system(activate_command)
         sys.exit()
 
-# Install necessary libraries
 def install_requirements():
     for package in REQUIREMENTS:
         try:
@@ -47,3 +57,8 @@ def install_requirements():
         except ImportError:
             print(f"Installing {package}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+def setup_environment():
+    setup_virtual_environment()
+    install_requirements()
+    load_config()

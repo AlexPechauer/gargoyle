@@ -1,17 +1,9 @@
-import os
-from env_setup import setup_virtual_environment, install_requirements
+from hotkey import start_hotkey_listener
+from sentence_tracker import run
 
-# Main logic for hotkey detection
-def main_logic():
-    from hotkey import start_hotkey_listener
-    # Start hotkey listener
+def start_app():
     try:
-        start_hotkey_listener()
+        # start_hotkey_listener()
+        run()
     except KeyboardInterrupt:
         print("Exiting application...")
-
-# Main entry point
-if __name__ == "__main__":
-    setup_virtual_environment()
-    install_requirements()
-    main_logic()
