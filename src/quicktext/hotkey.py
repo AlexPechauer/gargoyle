@@ -1,25 +1,20 @@
 import json
 from pynput import keyboard
+from pynput.keyboard import Controller, Key
+import os
+import json
+from keyboard.key_typing import autopopulate_text
 
-# File that stores the triggers and sentences
-JSON_FILE = "sentences.json"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+JSON_FILE = os.path.join(current_dir, "sentences.json")
 
-# Load predefined sentences from JSON
 def load_sentences():
+    if not os.path.exists(JSON_FILE):
+        raise FileNotFoundError(f"sentences.json not found at {JSON_FILE}")
     with open(JSON_FILE, "r") as file:
         return json.load(file)
-
-# Simulate typing text
-def autopopulate_text(text):
-    from pynput.keyboard import Controller
-    keyboard = Controller()
-    for char in text:
-        keyboard.type(char)
-
-# Start hotkey detection logic
+        
 def start_hotkey_listener():
-    from pynput.keyboard import Controller, Key
-
     sentences = load_sentences()
     current_input = []
     keyboard_controller = Controller()  # Controller to simulate key presses

@@ -4,21 +4,6 @@ import subprocess
 import venv
 import stat
 
-CONFIG = {}
-
-#TODO This doesn't work so much
-def load_config(env_file=".dev.env"):
-    from dotenv import load_dotenv
-    global CONFIG
-
-    load_dotenv(env_file)
-    
-    for key, value in os.environ.items():
-        if key in open(env_file).read():
-            CONFIG[key] = value
-
-    return CONFIG
-
 def read_requirements(file_path="requirements.txt"):
     with open(file_path, "r") as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
@@ -58,7 +43,6 @@ def install_requirements():
             print(f"Installing {package}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-def setup_environment():
-    setup_virtual_environment()
-    install_requirements()
-    load_config()
+
+setup_virtual_environment()
+install_requirements()
