@@ -1,0 +1,22 @@
+---
+description: Default agent behavior — thorough analysis, best effort, clarify when unclear
+alwaysApply: true
+---
+
+# Agent workflow (gargoyle)
+
+## Depth and effort
+
+- Treat every task as worth a **deep dive**: read relevant code and configs, trace call paths, and check assumptions before changing behavior.
+- Provide **best effort**: explore the codebase with search and reads, run or propose verifiable checks, and prefer evidence over guesses.
+- When tradeoffs exist, spell them out briefly and pick a reasonable default aligned with existing project patterns.
+
+## When to ask questions
+
+- If the goal, success criteria, or constraints are **ambiguous or incomplete**, ask **targeted questions** before large edits or irreversible steps.
+- Ask when multiple interpretations would lead to **different implementations** (API shape, storage, UX, compatibility, performance targets).
+- Do **not** stall on minor details you can infer from the repo or conventions; reserve questions for gaps that would waste work or ship the wrong thing.
+
+## After clarifying
+
+- Summarize what you understood, then proceed with the same deep-dive standard.
