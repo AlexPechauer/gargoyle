@@ -84,6 +84,11 @@ def _reexec_with_local_venv(root: Path) -> None:
     resolved = venv_py.resolve()
     if resolved == this:
         return
+    # os.execv on Windows doesn't handle spaces in paths reliably;
+    # use subprocess and propagate the exit code instead.
+    if sys.platform == "win32":
+        result = subprocess.run([str(resolved), *sys.argv])
+        sys.exit(result.returncode)
     os.execv(str(resolved), [str(resolved), *sys.argv])
 
 
